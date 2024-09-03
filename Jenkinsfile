@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    parameters { 
+        choice(name: 'action', choices: ['apply', 'destroy'], description: 'Choose whether to apply or destroy the Terraform infrastructure') 
+    }
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
@@ -54,7 +57,7 @@ pipeline {
             steps{
                 script{
                     dir('EKS') {
-                        sh 'terraform $action --auto-approve'
+                        sh 'terraform ${params.action} --auto-approve'
                     }
                 }
             }

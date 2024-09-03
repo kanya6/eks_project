@@ -58,7 +58,7 @@ pipeline {
                     }
                 }
             }
-        // }
+        }
         // stage('Deploying Nginx Application') {
         //     steps{
         //         script{

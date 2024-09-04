@@ -1,7 +1,7 @@
 pipeline {
     agent any
     parameters { 
-        choice(name: 'action', choices: ['apply', 'destroy'], description: 'Choose whether to apply or destroy the Terraform infrastructure') 
+        choice(name: 'action', choices: ['apply', 'destroy', 'plan'], description: 'Choose whether to apply or destroy the Terraform infrastructure') 
     }
     environment {
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
@@ -25,34 +25,34 @@ pipeline {
                 }
             }
         }
-        stage('Formatting Terraform Code'){
-            steps{
-                script{
-                    dir('EKS'){
-                        sh 'terraform fmt'
-                    }
-                }
-            }
-        }
-        stage('Validating Terraform'){
-            steps{
-                script{
-                    dir('EKS'){
-                        sh 'terraform validate'
-                    }
-                }
-            }
-        }
-        stage('Previewing the Infra using Terraform'){
-            steps{
-                script{
-                    dir('EKS'){
-                        sh 'terraform plan'
-                    }
-                    input(message: "Are you sure to proceed?", ok: "Proceed")
-                }
-            }
-        }
+        // stage('Formatting Terraform Code'){
+        //     steps{
+        //         script{
+        //             dir('EKS'){
+        //                 sh 'terraform fmt'
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Validating Terraform'){
+        //     steps{
+        //         script{
+        //             dir('EKS'){
+        //                 sh 'terraform validate'
+        //             }
+        //         }
+        //     }
+        // }
+        // stage('Previewing the Infra using Terraform'){
+        //     steps{
+        //         script{
+        //             dir('EKS'){
+        //                 sh 'terraform plan'
+        //             }
+        //             input(message: "Are you sure to proceed?", ok: "Proceed")
+        //         }
+        //     }
+        // }
         stage('Creating/Destroying an EKS Cluster'){
             steps{
                 script{

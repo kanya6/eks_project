@@ -53,11 +53,15 @@ pipeline {
         //         }
         //     }
         // }
-        stage('Creating/Destroying an EKS Cluster'){
-            steps{
-                script{
+        stage('Creating/Destroying an EKS Cluster') {
+            steps {
+                script {
                     dir('EKS') {
-                        sh "terraform ${params.action} --auto-approve"
+                        if (params.action == 'plan') {
+                            sh 'terraform plan'
+                        } else {
+                            sh "terraform ${params.action} --auto-approve"
+                        }
                     }
                 }
             }

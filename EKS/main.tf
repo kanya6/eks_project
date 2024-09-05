@@ -7,7 +7,7 @@ module "vpc" {
   cidr = var.vpc_cidr
 
   azs = data.aws_availability_zones.azs.names
-
+ 
   private_subnets = var.private_subnets
   public_subnets = var.public_subnets
 
@@ -34,6 +34,7 @@ module "eks" {
   cluster_name                   = "my-eks-cluster"
   cluster_version                = "1.24"
   cluster_endpoint_public_access  = true
+  enable_cluster_creator_admin_permissions = true
   vpc_id                         = module.vpc.vpc_id
   subnet_ids                     = module.vpc.private_subnets
   eks_managed_node_groups = {

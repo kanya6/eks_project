@@ -66,16 +66,25 @@ pipeline {
                 }
             }
         }
-        stage('Deploying Nginx Application') {
-            steps{
-                script{
-                    dir('EKS/Configurationfiles') {
-                        sh 'aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster'
-                        sh 'kubectl apply -f deployment.yaml'
-                        sh 'kubectl apply -f service.yaml'
-                    }
-                }
+        stage('Update Kubeconfig') { 
+            steps { 
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS-credentials']]) { 
+                    sh ''' aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster '''
+                    sh 'kubectl apply -f deployment.yaml'
+                    sh 'kubectl apply -f service.yaml' 
+                    } 
+                } 
             }
-        }
+        // stage('Deploying Nginx Application') {
+        //     steps{
+        //         script{
+        //             dir('EKS/Configurationfiles') {
+        //                 sh 'aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster'
+        //                 sh 'kubectl apply -f deployment.yaml'
+        //                 sh 'kubectl apply -f service.yaml'
+        //             }
+        //         }
+        //     }
+        // }
     }
 }

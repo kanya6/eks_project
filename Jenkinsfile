@@ -80,7 +80,7 @@ pipeline {
                 script{
                     withCredentials([[ $class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'AWS-credentials' 
                     ]]) {
-                    dir('EKS/Configurationfiles') {
+                    dir('EKS/Configurationsfiles') {
                         sh 'aws eks --region us-east-1 update-kubeconfig --name my-eks-cluster'
                         sh 'kubectl apply -f deployment.yaml'
                         sh 'kubectl apply -f service.yaml'

@@ -18,7 +18,6 @@ module "vpc" {
   }
 }
 
-
 #SG
 module "sg" {
   source = "terraform-aws-modules/security-group/aws"
@@ -41,7 +40,49 @@ module "sg" {
       protocol    = "tcp"
       description = "SSH"
       cidr_blocks = "0.0.0.0/0"
-    }
+    },
+    {
+      from_port   = 25
+      to_port     = 25
+      protocol    = "tcp"
+      description = "SMTP"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 3000
+      to_port     = 10000
+      protocol    = "tcp"
+      description = "Custom TCP"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      description = "HTTPS"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 6443
+      to_port     = 6443
+      protocol    = "tcp"
+      description = "Custom TCP"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 465
+      to_port     = 465
+      protocol    = "tcp"
+      description = "SMTPS"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
+      from_port   = 30000
+      to_port     = 32767
+      protocol    = "tcp"
+      description = "Custom TCP"
+      cidr_blocks = "0.0.0.0/0"
+    },
   ]
   egress_with_cidr_blocks = [
     {

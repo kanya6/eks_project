@@ -4,7 +4,7 @@ module "sonar-server" {
   source = "terraform-aws-modules/ec2-instance/aws"
 
   name = "Jenkins-Server"
-
+  ami = "ami-0e86e20dae9224db8"
   instance_type               = var.sonar_instance_type
   key_name                    = "eks-terraform-key"
   monitoring                  = true
@@ -25,7 +25,7 @@ module "nexus-server" {
   source = "terraform-aws-modules/ec2-instance/aws"
 
   name = "nexus-Server"
-
+  ami = "ami-0e86e20dae9224db8"
   instance_type               = var.nexus_instance_type
   key_name                    = "eks-terraform-key"
   monitoring                  = true

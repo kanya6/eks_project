@@ -20,7 +20,7 @@ pipeline {
             steps{
                 script{
                     dir('EKS'){
-                        sh 'terraform init'
+                        sh 'terraform init -no-color'
                     }
                 }
             }
@@ -29,7 +29,7 @@ pipeline {
             steps{
                 script{
                     dir('EKS'){
-                        sh 'terraform plan'
+                        sh 'terraform plan -no-color'
                     }
                     input(message: "Are you sure to proceed?", ok: "Proceed")
                 }
@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     dir('EKS') {
-                        sh "terraform ${params.action} --auto-approve"
+                        sh "terraform ${params.action} --auto-approve -no-color"
                     }
                 }
             }

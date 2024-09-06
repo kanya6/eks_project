@@ -20,14 +20,7 @@ module "sonar-server" {
     Environment = "dev"
   }
 }
-variable "sonar_instance_type" {
-  type = string
-  description = "instance type for the nexus"
-} 
-variable "nexus_instance_type" {
-  type = string
-  description = "instance type for the nexus"
-} 
+
 module "nexus-server" {
   source = "terraform-aws-modules/ec2-instance/aws"
 

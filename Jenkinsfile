@@ -44,14 +44,14 @@ pipeline {
                 }
             }
         }
-        stage('kubectl') {
-            steps {
-                script {
-                    dir('EKS') {
-                        sh "kubectl get ns"
-                    }
-                }
-            }
-        }
+        // stage('kubectl') {
+        //     steps {
+        //         script {
+        //             dir('EKS') {
+        //                 sh "kubectl get ns"
+        //             }
+        //         }
+        //     }
+        // }
     }
 }

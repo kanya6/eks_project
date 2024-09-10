@@ -1,0 +1,103 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubernetes.io/psp: eks.privileged
+  creationTimestamp: "2024-09-10T23:37:33Z"
+  labels:
+    run: kanya
+  name: kanya
+  namespace: default
+  resourceVersion: "7932"
+  uid: 45df50ad-1715-4265-b05b-4b1ad2deda15
+spec:
+  containers:
+  - image: esenkanatbekov/kanya
+    imagePullPolicy: Always
+    name: kanya
+    ports:
+    - containerPort: 8080
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-8zldd
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: ip-192-168-2-197.ec2.internal
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-8zldd
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2024-09-10T23:37:33Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2024-09-10T23:37:44Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2024-09-10T23:37:44Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2024-09-10T23:37:33Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://29c2616b013a14d96673e8715937f6e68e8d69f69bc0104adee91a53523f4ad1
+    image: docker.io/esenkanatbekov/kanya:latest
+    imageID: docker.io/esenkanatbekov/kanya@sha256:d67e78a2a96d2d646a4be8747bd9e1c9c30dadb0ff89a8db7b1387f896cf3dad
+    lastState: {}
+    name: kanya
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2024-09-10T23:37:44Z"
+  hostIP: 192.168.2.197
+  phase: Running
+  podIP: 192.168.2.190
+  podIPs:
+  - ip: 192.168.2.190
+  qosClass: BestEffort
+  startTime: "2024-09-10T23:37:33Z"
